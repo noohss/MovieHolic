@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+
+#AvgStarTable{
+	width: 700px;
+	height: 50px;
+	background-color: white;
+	
+	margin: auto;
+}
+
+#boxTable{
+	border: 1px solid black;
+	width: 700px;
+	height: 100px;
+}
+#smallBoxTable{
+	
+	margin-left: 5px;
+	margin-right: 5px;
+	width: auto;
+	margin-top: 3px;
+	height: auto;
+}
+
+#bbox{
+	width: 260px;
+	border: 1px solid black;
+	height: 80px;
+}
+
+#mitBox{
+	height: 80px;
+	margin-top: 3px;
+}
+
+#MyreviewTable{
+	width: 700px;
+	height: 50px;
+	
+}
+
+#smallreviewtable{
+	border: 1px solid black;
+	width: 700px;
+	height: 150px;
+}
+#boxcomen{
+	border: 2px solid black; 
+	height: 150px;
+	margin-left: 5px;
+	
+}
+
+#comenBox{
+	margin-left: 3px;
+}
+
+
+
+
+
+.star-rating {
+	display: flex;
+	flex-direction: row-reverse;
+	font-size: 1.125rem;
+	line-height: 1.25rem;
+	justify-content: space-around;
+	padding: 0 1.5em;
+	text-align: center;
+	width: 2.5em;
+  }
+   
+  .star-rating input {
+	display: none;
+  }
+   
+  .star-rating label {
+	-webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 1.15px;
+	-webkit-text-stroke-color: #2b2a29;
+	cursor: pointer;
+  }
+   
+  .star-rating :checked ~ label {
+	-webkit-text-fill-color: gold;
+  }
+   
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+	-webkit-text-fill-color: #fff58c;
+  }
+
+
+.tag{
+	height: 30px;
+	width: auto;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black; 
+	margin-left: 4px;
+	margin-bottom: -10px;
+	margin-top: 10px;
+}
+
+.iyi{
+	margin-top: 10px;
+	margin-left: 4px;
+}
+#insertDouroku{
+	position: absolute;
+	display: inline;
+	
+}
+
+.nameTag{
+	margin-top: 5px;
+}
+
+#rar{
+	display: none;
+	position: absolute;
+	margin-top: 233px;
+	margin-left: 120px;
+}
+
+#tauserbogi{
+	position: absolute;
+	margin-top: 233px;
+	margin-left: 120px;
+}
+
+#tausertable{
+	display: none;
+	border: 1px solid black;
+	margin-top: 10px;
+}
+
+#deltutable{
+	margin-left: 3px;
+	
+}
+
+#deltu1{
+	width: 686px;
+	resize: none;
+	font-size: 15;
+}
+
+#mydeltu1{
+	
+}
+#tauserDet{
+	position: absolute;
+	display: inline-block;
+}

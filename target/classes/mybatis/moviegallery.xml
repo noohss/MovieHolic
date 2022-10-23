@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="gallery">  
+    <select id="genre" resultType="vo.GenreVo">
+    	select * from genre
+    </select>
+    <select id="all" resultType="vo.MovieGenreVo">
+	SELECT DISTINCT mi.MOVIE_TITLE,g.GENRE_ID,mi.RELEASE_DATE,mi.RUNTIME,mi.MOVIE_ID,mi.POSTER_URL 
+	FROM MOVIE_GENRE mg, MOVIE_INFO mi, GENRE g WHERE mi.MOVIE_ID = mg.MOVIE_ID AND 
+	mg.GENRE_ID = g.GENRE_ID ORDER BY genre_id
+ 	</select>
+    
+    <select id="genreSelect" parameterType="int" resultType="vo.SelectMovie">
+	SELECT DISTINCT mi.MOVIE_TITLE,g.GENRE_ID,mi.RELEASE_DATE,mi.RUNTIME,mi.MOVIE_ID,mi.POSTER_URL 
+	FROM MOVIE_GENRE mg, MOVIE_INFO mi, GENRE g WHERE mi.MOVIE_ID = mg.MOVIE_ID 
+	AND mg.GENRE_ID = g.GENRE_ID AND g.GENRE_ID = #{genre_id} ORDER BY GENRE_ID DESC
+	</select>
+	
+  </mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="starComment">
+	
+	<insert id="insert" parameterType="vo.starVo">
+	insert into review (review_id, member_id, content, movie_id, user_star) 
+	values (review_id_num.nextval, #{member_id}, #{content}, #{movie_id}, #{rating})
+		
+	</insert>
+	
+</mapper>  

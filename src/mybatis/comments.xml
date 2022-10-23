@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="comments">
+ 	<select id="getComments" parameterType="int" resultType="board.vo.Comment">
+ 	SELECT * FROM review c WHERE review_id = #{review_id}
+ 	</select>
+ 	<insert id="insert" parameterType="board.vo.Comment">
+ 	INSERT INTO review(review_id,member_id,content) 
+VALUES (review_seq.nextval,#{member_id},#{content})
+ 	</insert>
+<!-- 	<update id="updateCmtCount" parameterType="int">
+	UPDATE movie_FREEBOARD SET COMMENTCOUNT =
+	(SELECT count(*) FROM review  WHERE review_id=#{review_id}) WHERE review_id =#{mref}
+	</update>  -->
+	<delete id="delete" parameterType="int">
+	DELETE FROM review c WHERE review_id = #{review_id}
+	</delete>
+ </mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="star">  
+	<select id="starFirst" parameterType="java.util.Map" resultType="vo.commentVo">
+	SELECT COUNT(*) a FROM REVIEW r WHERE MOVIE_ID = #{movie_id}
+	</select>
+	
+	<select id="contentSearch" parameterType="java.util.Map" resultType="vo.contentVo">
+	select * from review where movie_id = #{movie_id} and member_id != #{member_id} ORDER BY create_date DESC 
+	</select>
+	
+	<select id="contentPageSearch" parameterType="java.util.Map" resultType="vo.contentVo">
+	SELECT t.* FROM (SELECT rownum r, x.* from (select * from review where movie_id = #{movie_id} and member_id != #{member_id} 
+ORDER BY create_date DESC) x) t WHERE r BETWEEN #{page} AND #{page4}
+	</select>
+	
+	<select id="MycontentSearch" parameterType="java.util.Map" resultType="vo.contentVo">
+	select * from review where movie_id = #{movie_id} and member_id = #{member_id}
+	</select>
+	 
+	<select id="avg" parameterType="int" resultType="float">
+		select avg(user_star) from review where movie_id = #{movie_id} 
+	</select>
+	 
+</mapper>  

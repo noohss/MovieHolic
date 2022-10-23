@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">  
+	<select id="searchFirst" resultType="vo.MovieVo">
+	SELECT x.movie_title, release_date, x.movie_title_en FROM ( SELECT * FROM movie_info ORDER BY release_date DESC) x WHERE rownum &lt;= 13
+	</select>
+	
+	<select id="searchAll" parameterType="java.util.Map" resultType="vo.MovieVo2">
+	SELECT x.* from (SELECT movie_id, movie_title, movie_title_en, RELEASE_date, runtime, cum_audience, VIEW_rating, poster_url, star_rating_avg FROM 
+	MOVIE_INFO WHERE movie_title LIKE '%'||#{name}||'%' ORDER BY release_date DESC) x 
+ 	</select>
+ 	
+	<select id="searchAllPage" parameterType="java.util.Map" resultType="vo.MovieVo2">
+	SELECT t.* FROM (SELECT rownum r, x.* from (SELECT movie_id, movie_title, movie_title_en, 
+	RELEASE_date, runtime, cum_audience, VIEW_rating, poster_url, star_rating_avg FROM 
+	MOVIE_INFO WHERE movie_title LIKE '%'||#{name}||'%' ORDER BY release_date DESC) x) t WHERE r BETWEEN #{page} AND #{page9}
+ 	</select>
+
+	<select id="genreSearch" parameterType="java.util.Map" resultType="vo.GenreVo2">
+	SELECT tc.movie_title, tc.movie_title_en, GENRE_name FROM (SELECT TB.genre_id, ta.movie_title, ta.RELEASE_date, ta.runtime, ta.view_rating, ta.movie_title_en FROM
+	 (select MOVIE_ID, movie_title, release_date, runtime, view_rating, movie_title_en from movie_info
+	order by release_date DESC) ta FULL OUTER JOIN MOVIE_GENRE tb ON ta.movie_id = tb.movie_id) tc FULL OUTER JOIN genre gaa ON tc.genre_id = gaa.genre_id 
+	WHERE movie_title like '%'||#{name}||'%'
+	</select>	
+	 
+	<select id="avg" resultType="vo.starAvgVo" parameterType="int">
+	select star_rating_avg from movie_info where movie_id = #{movie_id}
+	</select>
+	
+	<update id="updateStar" parameterType="int">  <!-- freeboard 테이블의 댓글 개수 업데이트 -->
+	UPDATE MOVIE_INFO SET STAR_RATING_AVG = (SELECT AVG(USER_STAR) FROM REVIEW r WHERE MOVIE_ID = #{movie_id}) WHERE MOVIE_ID = #{movie_id}	
+	</update>
+	
+	<select id="reviewSearch" parameterType="java.util.Map" resultType="int">
+	select count(*) from review where movie_id = #{movie_id} and member_id = #{member_id}
+	</select>
+	
+</mapper>  
+
+
+<!-- SELECT * FROM (SELECT mg.GENRE_ID, t.* FROM (SELECT x.* from (SELECT movie_id, movie_title, movie_title_en, RELEASE_date, runtime, cum_audience, VIEW_rating, poster_url, star_rating_avg FROM 
+MOVIE_INFO WHERE movie_title LIKE '%'||#{name}||'%' ORDER BY release_date DESC) x) t FULL OUTER JOIN MOVIE_GENRE mg ON t.movie_id = mg.MOVIE_ID) k FULL OUTER JOIN GENRE g ON g.GENRE_ID = k.genre_id -->
+
+	<!-- SELECT y13.*, x13.actor_full FROM (SELECT mi2.*, y3.dir_full FROM (SELECT MOVIE_ID, LISTAGG(dir_name, ', ') WITHIN GROUP (ORDER BY MOVIE_ID) dir_full FROM (SELECT y2.*, d.DIR_NAME FROM (SELECT md.* FROM (SELECT movie_id FROM MOVIE_INFO mi WHERE movie_title LIKE '%'||#{name}||'%' ORDER BY release_date DESC) y
+FULL OUTER JOIN MOVIE_DIRECTOR md ON y.movie_id = md.MOVIE_ID WHERE md.MOVIE_ID = y.movie_id) y2 FULL OUTER JOIN DIRECTOR d ON d.DIRECTOR_ID = y2.director_id) 
+GROUP BY MOVIE_ID) y3 FULL OUTER JOIN MOVIE_INFO mi2 ON y3.movie_id = mi2.MOVIE_ID WHERE MOVIE_title LIKE '%'||#{name}||'%') y13 FULL OUTER JOIN (SELECT MOVIE_ID, LISTAGG(ACTOR_name, ', ') WITHIN GROUP (ORDER BY MOVIE_ID) actor_full FROM (SELECT * FROM (SELECT ma.* FROM (SELECT MOVIE_ID FROM MOVIE_INFO mi WHERE movie_title LIKE '%'||#{name}||'%' ORDER BY release_date DESC) a FULL OUTER JOIN MOVIE_ACTOR ma ON a.movie_id = ma.MOVIE_ID) b FULL OUTER JOIN ACTOR aa ON aa.ACTOR_ID = b.actor_id) 
+GROUP BY MOVIE_ID) x13 ON y13.movie_id = x13.movie_id WHERE MOVIE_title LIKE '%'||#{name}||'%' -->
+
+
+
+
+
+
+

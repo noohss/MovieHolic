@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie">
+	<select id ="selectAll" resultType="vo.Movie">
+		SELECT * FROM MOVIE_INFO ORDER BY MOVIE_ID ASC
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="vo.Movie">
+  		SELECT * FROM MOVIE_INFO WHERE MOVIE_ID = #{movie_id}
+  	</select>
+  	
+  	<select id="selectOne1" parameterType="int" resultType="vo.Movie">
+  	SELECT LISTAGG(g.GENRE_NAME,',') within GROUP(ORDER BY g.GENRE_ID) AS genre_name FROM GENRE g 
+			JOIN MOVIE_GENRE mg 
+			ON g.GENRE_ID = mg.GENRE_ID 
+	WHERE mg.MOVIE_ID = #{movie_id}
+  	</select>
+  	
+  	<select id="selectOne2" parameterType="int" resultType="vo.Actor">
+  		SELECT LISTAGG(a.actor_name,',') WITHIN GROUP (ORDER BY a.actor_id) AS actor_name FROM ACTOR a 
+			JOIN MOVIE_ACTOR ma 
+			ON a.ACTOR_ID = ma.ACTOR_ID 
+		WHERE ma.MOVIE_ID = #{movie_id}	
+  	</select>
+  	
+  	<select id="selectOne3" parameterType="int" resultType="vo.Director">
+  		SELECT d.DIR_NAME FROM DIRECTOR d 
+			JOIN MOVIE_DIRECTOR md 
+			ON d.DIRECTOR_ID = md.DIRECTOR_ID 
+		WHERE md.MOVIE_ID = #{movie_id}
+  	</select>
+  	
+  	<select id="selectOne4" parameterType="int" resultType="vo.StarRating">
+  		SELECT star_rating FROM STAR_RATING WHERE MOVIE_ID = #{movie_id}
+  	</select>
+  
+  	
+</mapper>

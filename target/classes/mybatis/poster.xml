@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="poster">
+  	<select id="getPoster" parameterType="int" resultType="vo.Poster">
+  		SELECT POSTER_URL FROM MOVIE_INFO MI 
+		WHERE MOVIE_ID = #{movie_id}
+  	</select>
+  	
+  	<select id="selectMv" resultType="vo.Poster">
+  	<![CDATA[
+	SELECT poster_url, movie_title,movie_id,RUNTIME,RELEASE_DATE  FROM
+(SELECT poster_url, movie_title,movie_id,RUNTIME,RELEASE_DATE  FROM MOVIE_INFO mi
+ORDER BY RELEASE_DATE DESC)
+WHERE rownum <= 15]]>
+  	</select>
+  	
+  	<select id="randomGenre" resultType="vo.Genre">
+  		SELECT GENRE_NAME FROM 
+		(SELECT GENRE_name FROM GENRE g  ORDER BY dbms_random.value)
+		WHERE rownum = 1
+  	</select>
+  	<select id="randomMovie" parameterType="String" resultType="vo.Random">
+  	<![CDATA[
+  		SELECT mi.movie_id, movie_title, poster_url,runtime,release_date FROM MOVIE_INFO mi, MOVIE_GENRE mg, GENRE g
+		WHERE mi.MOVIE_ID = mg.MOVIE_ID AND mg.GENRE_ID = g.GENRE_ID 
+		AND g.GENRE_NAME = #{genre_name} AND rownum <= 5 ORDER BY dbms_random.value ]]>
+  	</select>
+  </mapper>

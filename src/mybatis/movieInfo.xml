@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movieInfo">
+	<select id="insertMovieInfo" parameterType="vo.MovieVo">
+		INSERT INTO movie_info(movie_id, movie_title, movie_title_en, release_date, runtime, cum_audience
+		, view_rating, plot, poster_url, trailer_url, star_rating_avg) 
+		VALUES(movie_id_seq.nextval, #{movie_title}, #{movie_title_en}, #{release_date}, #{runtime}, #{cum_audience}
+		, #{view_rating}, #{plot}, #{poster_url}, #{trailer_url}, #{star_rating_avg})
+	</select>
+</mapper>
